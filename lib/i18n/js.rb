@@ -114,6 +114,11 @@ module I18n
         deep_merge! result, filter(translations, scope)
       end
 
+      #check if it contains som key to exclude and remove them
+      # we go on second level because first key level is locale
+      result.keys.each do |l|
+        result[l].delete_if { |key, value| config[:exclude_keys].include?(key) }
+      end
       result
     end
 
