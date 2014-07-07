@@ -100,7 +100,7 @@ module I18n
       FileUtils.mkdir_p File.dirname(file)
 
       File.open(file, "w+") do |f|
-        f << %(I18n.translations || (I18n.translations = {});\n)
+        f << %(var I18n = I18n || {};\nI18n.translations || (I18n.translations = {});\n)
         translations.each do |locale, translations_for_locale|
           f << %(I18n.translations["#{locale}"] = #{translations_for_locale.to_json};\n);
         end
